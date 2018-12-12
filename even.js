@@ -1,4 +1,4 @@
-document.write("kamel") 
+// document.write("kamel") 
 
 function Operacion(numero, numero2){
     var numero = numero||1;
@@ -22,4 +22,27 @@ function Operacion(numero, numero2){
     }
 };
 
-document.write(" "+Operacion(1,2).sum());
+// document.write(" "+Operacion(1,2).sum());
+
+var Xmr = new XMLHttpRequest(); 
+
+function Respuesta (){
+    if(this.readyState === 4 && this.status ===200){
+
+        var R = JSON.parse(this.responseText);
+        var rHTML = document.querySelector('#Respuesta');
+        var tpl='';
+
+        R.forEach(function(elem){
+            tpl += '<a href ='+elem.url+'>'
+            +'<img src='+elem.thumbnailUrl+'/>'
+            +'</a>'
+            +'<br/>'
+        });
+
+        rHTML.innerHTML= tpl;         
+    }
+} 
+Xmr.onload = Respuesta;
+Xmr.open('GET','http://jsonplaceholder.typicode.com/photos',true);
+Xmr.send();
